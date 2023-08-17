@@ -1,3 +1,8 @@
+puts "Destroying old data..."
+Company.destroy_all
+Dev.destroy_all
+Freebie.destroy_all
+
 puts "Creating companies..."
 Company.create(name: "Google", founding_year: 1998)
 Company.create(name: "Facebook", founding_year: 2004)
@@ -16,6 +21,13 @@ puts "Creating freebies..."
 # * TODO: create freebies! Remember, a freebie belongs to a dev *
 # * and a freebie belongs to a company.                         *
 # ***************************************************************
-# Create freebies Here
+10.times {
+  Freebie.create(
+    company_id: Company.ids.sample,
+    dev_id: Dev.ids.sample,
+    item_name: Faker::SlackEmoji.objects_and_symbols,
+    value: rand(5..50)
+  )
+}
 
 puts "Seeding done!"
